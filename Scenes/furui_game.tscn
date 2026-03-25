@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://dt4duuvyaxeo"]
+
+[ext_resource type="Texture2D" uid="uid://bs5ar3m7h8mkw" path="res://Assets/Sprites/Kunzha.png" id="1_1e18b"]
+[ext_resource type="Script" uid="uid://bikwdtoda8ftm" path="res://Scripts/furuigame.gd" id="1_6pmrw"]
+[ext_resource type="Texture2D" uid="uid://h3u4r4ieqm6a" path="res://Assets/Sprites/bear.png" id="2_1e18b"]
+[ext_resource type="Script" uid="uid://bysq4bjbllwyt" path="res://Scripts/KunzhaHead.gd" id="2_t5wx2"]
+[ext_resource type="Texture2D" uid="uid://cq8mog7tl0jec" path="res://Assets/Sprites/bird.png" id="3_xb0jo"]
+[ext_resource type="Texture2D" uid="uid://m1mmyo4dw8mb" path="res://Assets/Sprites/cat.png" id="4_t5wx2"]
+[ext_resource type="Texture2D" uid="uid://dm6leagjar0u1" path="res://Assets/Sprites/fox.png" id="5_6pmrw"]
+[ext_resource type="Texture2D" uid="uid://ho7j1by3ng8p" path="res://Assets/Sprites/rabbit.png" id="6_hjih2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pmrw"]
+size = Vector2(3111.11, 3111.1113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjih2"]
+size = Vector2(1333.3345, 1333.3335)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1y7w"]
+size = Vector2(1111.1113, 888.8887)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbeci"]
+size = Vector2(1111.1112, 1333.3335)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dsnm"]
+size = Vector2(1111.1113, 1111.1111)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhhpl"]
+size = Vector2(1333.3354, 888.88904)
+
+[node name="furui game" type="Node2D" unique_id=1000228086]
+scale = Vector2(0.36, 0.36)
+script = ExtResource("1_6pmrw")
+
+[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374]
+position = Vector2(296.00003, 172.33336)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_1e18b")
+script = ExtResource("2_t5wx2")
+
+[node name="Area2D" type="Area2D" parent="KunzhaHead" unique_id=2122645939]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KunzhaHead/Area2D" unique_id=645718142]
+position = Vector2(24.4436, 479.99933)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_6pmrw")
+
+[node name="KunzhaBody" type="Node2D" parent="." unique_id=1044519267]
+
+[node name="Furui1" type="Sprite2D" parent="." unique_id=190619905]
+position = Vector2(777.7778, 799.99994)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_1e18b")
+
+[node name="FoodArea" type="Area2D" parent="Furui1" unique_id=440488879]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furui1/FoodArea" unique_id=194952980]
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_hjih2")
+
+[node name="Furui2" type="Sprite2D" parent="." unique_id=1735372787]
+position = Vector2(1311.1113, 844.4444)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_xb0jo")
+
+[node name="FoodArea" type="Area2D" parent="Furui2" unique_id=1415119861]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furui2/FoodArea" unique_id=2081892594]
+position = Vector2(-0.0023040771, 0)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_o1y7w")
+
+[node name="Furui3" type="Sprite2D" parent="." unique_id=830640026]
+position = Vector2(311.11108, 755.55554)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_t5wx2")
+
+[node name="FoodArea" type="Area2D" parent="Furui3" unique_id=239348799]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furui3/FoodArea" unique_id=1798499979]
+position = Vector2(0.0002670288, 0)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_nbeci")
+
+[node name="Furui4" type="Sprite2D" parent="." unique_id=7672136]
+position = Vector2(777.7777, 266.66666)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_6pmrw")
+
+[node name="FoodArea" type="Area2D" parent="Furui4" unique_id=1896386636]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furui4/FoodArea" unique_id=176752847]
+position = Vector2(0.0002670288, -7.6293945e-06)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_6dsnm")
+
+[node name="Furui5" type="Sprite2D" parent="." unique_id=1259687129]
+position = Vector2(1377.778, 355.55554)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_hjih2")
+
+[node name="FoodArea" type="Area2D" parent="Furui5" unique_id=384838408]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furui5/FoodArea" unique_id=1040671823]
+position = Vector2(-0.0029296875, 0)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_uhhpl")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1408495863]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="GameOverLabel" type="Label" parent="." unique_id=1047825623]
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 24.0
+
+[connection signal="area_entered" from="KunzhaHead/Area2D" to="KunzhaHead" method="_on_Area2D_area_entered"]
