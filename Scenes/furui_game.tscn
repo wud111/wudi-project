@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://m1mmyo4dw8mb" path="res://Assets/Sprites/cat.png" id="4_t5wx2"]
 [ext_resource type="Texture2D" uid="uid://dm6leagjar0u1" path="res://Assets/Sprites/fox.png" id="5_6pmrw"]
 [ext_resource type="Texture2D" uid="uid://ho7j1by3ng8p" path="res://Assets/Sprites/rabbit.png" id="6_hjih2"]
+[ext_resource type="Texture2D" uid="uid://go8k6sodtxtr" path="res://Assets/Sprites/mainpage.png" id="9_6pmrw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pmrw"]
 size = Vector2(3111.11, 3111.1113)
@@ -27,14 +28,29 @@ size = Vector2(888, 888)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhhpl"]
 size = Vector2(888, 888)
 
+[sub_resource type="FontVariation" id="FontVariation_t5wx2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5wx2"]
+bg_color = Color(0.13725491, 0.16862746, 0.9098039, 0.6901961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.047058824, 0.29803923, 0.92941177, 1)
+
 [node name="furui game" type="Node2D" unique_id=1000228086]
 script = ExtResource("1_6pmrw")
 
-[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374]
+[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374 node_paths=PackedStringArray("score_label", "game_over_panel", "score_final_label", "food_count_label", "start_cover")]
 position = Vector2(296.00003, 172.33336)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("1_1e18b")
 script = ExtResource("2_t5wx2")
+score_label = NodePath("../CanvasLayer/Label")
+game_over_panel = NodePath("../CanvasLayer/GameOverPanel")
+score_final_label = NodePath("../CanvasLayer/GameOverPanel/ScoreLabelFinal")
+food_count_label = NodePath("../CanvasLayer/GameOverPanel/FoodCountLabel")
+start_cover = NodePath("../CanvasLayer/StartCover")
 
 [node name="Area2D" type="Area2D" parent="KunzhaHead" unique_id=2122645939]
 
@@ -104,20 +120,96 @@ position = Vector2(-0.0029296875, 0)
 scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_uhhpl")
 
-[node name="GameOverLabel" type="Label" parent="." unique_id=1047825623]
-offset_top = 1.0
-offset_right = 40.0
-offset_bottom = 24.0
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=737605372]
 layer = 128
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1408495863]
-offset_left = 1136.0
-offset_top = 1.0
-offset_right = 1194.0
-offset_bottom = 24.0
-scale = Vector2(5.099224, 5.131399)
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1408495863]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_right = 120.0
+offset_bottom = 65.0
+grow_horizontal = 2
+scale = Vector2(1.3765658, 1.7408543)
+theme_override_fonts/font = SubResource("FontVariation_t5wx2")
+theme_override_font_sizes/font_size = 24
 text = "分数：0"
+
+[node name="GameOverPanel" type="Panel" parent="CanvasLayer" unique_id=1877662306]
+custom_minimum_size = Vector2(25, 40)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -279.99994
+offset_top = 256.0
+offset_right = -241.89648
+offset_bottom = 294.6762
+grow_horizontal = 2
+scale = Vector2(15.169146, 18.129555)
+theme_override_styles/panel = SubResource("StyleBoxFlat_t5wx2")
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=522809159]
+layout_mode = 0
+offset_left = 12.657269
+offset_top = 3.088879
+offset_right = 76.65727
+offset_bottom = 26.088879
+scale = Vector2(0.20286623, 0.18854962)
+text = "游戏结束"
+
+[node name="ScoreLabelFinal" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1177711529]
+layout_mode = 0
+offset_left = 11.0751095
+offset_top = 15.003126
+offset_right = 101.07511
+offset_bottom = 38.003128
+scale = Vector2(0.18157439, 0.1885471)
+theme_override_font_sizes/font_size = 16
+text = "最终得分：0"
+
+[node name="TipLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1032382527]
+layout_mode = 0
+offset_left = 8.965564
+offset_top = 26.917374
+offset_right = 152.96556
+offset_bottom = 49.917374
+scale = Vector2(0.13904454, 0.21983054)
+text = "按下空格键重新挑战"
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1522243001]
+layout_mode = 0
+offset_left = 7.9107914
+offset_top = 7.942832
+offset_right = 103.91079
+offset_bottom = 30.942833
+scale = Vector2(0.13450094, 0.13317738)
+text = "坤炸没有收集完所有福瑞！"
+
+[node name="FoodCountLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1428506329]
+layout_mode = 0
+offset_left = 10.547722
+offset_top = 21.180883
+offset_right = 116.54772
+offset_bottom = 44.180885
+scale = Vector2(0.18422256, 0.18105896)
+theme_override_font_sizes/font_size = 16
+text = "收集的福瑞：0"
+
+[node name="EscLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1749377591]
+layout_mode = 0
+offset_left = 8.965563
+offset_top = 33.095135
+offset_right = 161.96556
+offset_bottom = 56.095135
+scale = Vector2(0.13126647, 0.19502881)
+text = "按下esc键返回主菜单"
+
+[node name="StartCover" type="TextureRect" parent="CanvasLayer" unique_id=1357397975]
+visible = false
+offset_right = 2732.0
+offset_bottom = 1534.0
+scale = Vector2(0.94, 0.94)
+texture = ExtResource("9_6pmrw")
 
 [connection signal="area_entered" from="KunzhaHead/Area2D" to="KunzhaHead" method="_on_Area2D_area_entered"]
