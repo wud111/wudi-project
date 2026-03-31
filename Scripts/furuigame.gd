@@ -4,7 +4,7 @@ extends Node2D
 @onready var foods = [$Furui1,$Furui2,$Furui3,$Furui4,$Furui5]
 
 func _ready():
-	call_deferred("spawn_food")
+	pass
 
 func spawn_food():
 	for f in foods:
@@ -12,8 +12,8 @@ func spawn_food():
 	
 	var idx = randi() % foods.size()
 	foods[idx].position = Vector2(
-		randi() % 2300 + 120,
-		randi() % 1200 + 120
+		randi() % 2400 + 80,
+		randi() % 1280 + 80
 	)
 	foods[idx].visible = true
 

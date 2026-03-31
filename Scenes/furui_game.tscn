@@ -13,27 +13,26 @@
 size = Vector2(3111.11, 3111.1113)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hjih2"]
-size = Vector2(1333.3345, 1333.3335)
+size = Vector2(888, 888)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1y7w"]
-size = Vector2(1111.1113, 888.8887)
+size = Vector2(888, 888)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbeci"]
-size = Vector2(1111.1112, 1333.3335)
+size = Vector2(888, 888)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dsnm"]
-size = Vector2(1111.1113, 1111.1111)
+size = Vector2(888, 888)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhhpl"]
-size = Vector2(1333.3354, 888.88904)
+size = Vector2(888, 888)
 
 [node name="furui game" type="Node2D" unique_id=1000228086]
-scale = Vector2(0.36, 0.36)
 script = ExtResource("1_6pmrw")
 
 [node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374]
 position = Vector2(296.00003, 172.33336)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.04, 0.04)
 texture = ExtResource("1_1e18b")
 script = ExtResource("2_t5wx2")
 
@@ -105,13 +104,20 @@ position = Vector2(-0.0029296875, 0)
 scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_uhhpl")
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=1408495863]
-offset_right = 40.0
-offset_bottom = 23.0
-
 [node name="GameOverLabel" type="Label" parent="." unique_id=1047825623]
 offset_top = 1.0
 offset_right = 40.0
 offset_bottom = 24.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=737605372]
+layer = 128
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1408495863]
+offset_left = 1136.0
+offset_top = 1.0
+offset_right = 1194.0
+offset_bottom = 24.0
+scale = Vector2(5.099224, 5.131399)
+text = "分数：0"
 
 [connection signal="area_entered" from="KunzhaHead/Area2D" to="KunzhaHead" method="_on_Area2D_area_entered"]
