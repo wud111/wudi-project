@@ -17,11 +17,6 @@ const SAFE_BODY_COUNT = 3
 @export var score_final_label: Label
 @export var food_count_label: Label
 @export var start_cover: TextureRect
-@export var timer_label: Label
-
-# 倒计时
-@export var total_time: float = 60.0
-var current_time: float = 0.0
 
 var direction: Vector2 = Vector2.ZERO
 var body_parts: Array = []
@@ -37,21 +32,21 @@ var turn_cooldown: float = 0.0
 const COOLDOWN_TIME: float = 0.2
 
 func _ready():
-	game_started = false
+	game_started = true  # 第二关直接开始
 	game_over = false
 	if start_cover:
-		start_cover.visible = true
+		start_cover.visible = false
 	if game_over_panel:
 		game_over_panel.visible = false
-	current_time = total_time
-	update_timer_label()
+	
+	# 数据应该已经通过Level2.gd的load_snake_data加载了
+	# 这里只需要确保UI更新
+	
+	# 更新UI显示
+	if score_label:
+		score_label.text = "分数：" + str(score)
 
 func _process(delta):
-	if !game_started and !game_over:
-		if Input.is_action_just_pressed("ui_accept"):
-			start_game()
-		return
-
 	if game_over:
 		if Input.is_action_just_pressed("ui_accept"):
 			restart_direct()
@@ -59,13 +54,7 @@ func _process(delta):
 			restart_to_home()
 		return
 
-	current_time -= delta
-	if current_time <= 0:
-		current_time = 0
-		time_up()
-		return
-	update_timer_label()
-
+	# 转向冷却计时
 	if turn_cooldown > 0:
 		turn_cooldown -= delta
 
@@ -76,39 +65,18 @@ func _process(delta):
 	check_body_collision()
 	update_body()
 
-func start_game():
-	game_started = true
-	if start_cover:
-		start_cover.visible = false
-	current_time = total_time
-	update_timer_label()
-	get_parent().spawn_food()
-
-func update_timer_label():
-	if timer_label:
-		timer_label.text = "时间：" + str(ceil(current_time)) + " 秒"
-
-# ====================== 时间到，保存蛇全部数据 ======================
-func time_up():
-	# 保存蛇数据到全局管理器
-	var game_data = get_node("/root/GameDataManager")
-	game_data.save_snake_data(self)
-	
-	# 跳转到第二关
-	get_tree().change_scene_to_file("res://Scenes/nian.tscn")
-
 func _input(event):
-	if !game_started or game_over:
+	if game_over:
 		return
-	
-	# ============= 这里加一行！=============
-	if turn_cooldown > 0: return
-	# =======================================
+
+	# 冷却中，不能转向
+	if turn_cooldown > 0:
+		return
 	
 	if event.is_action_pressed("ui_up"):
 		if direction != Vector2.DOWN:
 			direction = Vector2.UP
-			turn_cooldown = COOLDOWN_TIME  # 别忘了这个！
+			turn_cooldown = COOLDOWN_TIME
 	elif event.is_action_pressed("ui_down"):
 		if direction != Vector2.UP:
 			direction = Vector2.DOWN
@@ -121,6 +89,7 @@ func _input(event):
 		if direction != Vector2.LEFT:
 			direction = Vector2.RIGHT
 			turn_cooldown = COOLDOWN_TIME
+
 func update_body():
 	for i in range(body_parts.size()):
 		var idx = (i+1) * body_gap
@@ -140,7 +109,7 @@ func check_boundary_collision():
 		if score_final_label:
 			score_final_label.text = "最终得分：" + str(score)
 		if food_count_label:
-			food_count_label.text = "食物总数：" + str(food_count)
+			food_count_label.text = "收集的福瑞：" + str(food_count)
 
 func check_body_collision():
 	if body_parts.size() <= SAFE_BODY_COUNT:
@@ -155,31 +124,15 @@ func check_body_collision():
 			if score_final_label:
 				score_final_label.text = "最终得分：" + str(score)
 			if food_count_label:
-				food_count_label.text = "食物总数：" + str(food_count)
+				food_count_label.text = "收集的福瑞：" + str(food_count)
 			return
 
 func _on_Area2D_area_entered(area):
-	if !game_started or game_over:
+	if game_over:
 		return
 	
-	var food_parent = area.get_parent()
-	if food_parent.name.find("Furui") != -1 && food_parent.visible:
-		get_parent().on_food_eaten()
-		score += 10
-		food_count += 1
-		get_parent().spawn_food()
-		if score_label:
-			score_label.text = "分数：" + str(score)
-
-func on_food_eaten():
+	# 第二关的逻辑 - 这里可以添加第二关特有的食物或障碍物
 	pass
-
-func add_body(food_texture):
-	var new_body = Sprite2D.new()
-	new_body.texture = food_texture
-	new_body.scale = Vector2(0.05, 0.05)
-	get_parent().add_child(new_body)
-	body_parts.append(new_body)
 
 func restart_direct():
 	for part in body_parts:
@@ -199,19 +152,10 @@ func restart_direct():
 	turn_count = 0
 	turn_cooldown = 0.0
 	
-	score = 0
-	food_count = 0
-	current_time = total_time
-	
-	if score_label:
-		score_label.text = "分数：0"
 	if game_over_panel:
 		game_over_panel.visible = false
 	if start_cover:
 		start_cover.visible = false
-	
-	update_timer_label()
-	get_parent().spawn_food()
 
 func restart_to_home():
 	for part in body_parts:
@@ -219,27 +163,5 @@ func restart_to_home():
 	body_parts.clear()
 	position_history.clear()
 	
-	var min_pos = HEAD_RADIUS + 20
-	var max_x = WORLD_WIDTH - HEAD_RADIUS - 20
-	var max_y = WORLD_HEIGHT - HEAD_RADIUS - 20
-	position = Vector2(randf_range(min_pos, max_x), randf_range(min_pos, max_y))
-	
-	direction = Vector2.ZERO
-	game_started = false
-	game_over = false
-	
-	turn_count = 0
-	turn_cooldown = 0.0
-	
-	score = 0
-	food_count = 0
-	current_time = total_time
-	
-	if score_label:
-		score_label.text = "分数：0"
-	if game_over_panel:
-		game_over_panel.visible = false
-	if start_cover:
-		start_cover.visible = true
-	
-	update_timer_label()
+	# 返回主菜单场景
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")

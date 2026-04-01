@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://c8ws0liu00y66"]
+
+[ext_resource type="Texture2D" uid="uid://bs5ar3m7h8mkw" path="res://Assets/Sprites/Kunzha.png" id="1_7r3ii"]
+[ext_resource type="Script" uid="uid://cak3sxu3gb110" path="res://Scripts/Level2.gd" id="1_g2y2r"]
+[ext_resource type="Script" uid="uid://510eu5oni6sk" path="res://Scripts/KunzhaHead2.gd" id="2_7r3ii"]
+[ext_resource type="Texture2D" uid="uid://go8k6sodtxtr" path="res://Assets/Sprites/mainpage.png" id="8_sd45b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1feip"]
+size = Vector2(3111.11, 3111.1113)
+
+[sub_resource type="FontVariation" id="FontVariation_rhhq4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wf4e5"]
+bg_color = Color(0.13725491, 0.16862746, 0.9098039, 0.6901961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.047058824, 0.29803923, 0.92941177, 1)
+
+[node name="Level2" type="Node2D" unique_id=934167068]
+script = ExtResource("1_g2y2r")
+
+[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1289344612 node_paths=PackedStringArray("score_label", "game_over_panel", "score_final_label", "food_count_label", "start_cover")]
+position = Vector2(296.00003, 172.33336)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_7r3ii")
+script = ExtResource("2_7r3ii")
+score_label = NodePath("../CanvasLayer/Label")
+game_over_panel = NodePath("../CanvasLayer/GameOverPanel")
+score_final_label = NodePath("../CanvasLayer/GameOverPanel/ScoreLabelFinal")
+food_count_label = NodePath("../CanvasLayer/GameOverPanel/FoodCountLabel")
+start_cover = NodePath("../CanvasLayer/StartCover")
+
+[node name="Area2D" type="Area2D" parent="KunzhaHead" unique_id=782969378]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KunzhaHead/Area2D" unique_id=1034550295]
+position = Vector2(24.4436, 479.99933)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_1feip")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2059858735]
+layer = 128
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=431385955]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 48.0
+offset_right = 44.985107
+offset_bottom = 82.0
+grow_horizontal = 2
+scale = Vector2(1.3765658, 1.7408543)
+theme_override_fonts/font = SubResource("FontVariation_rhhq4")
+theme_override_font_sizes/font_size = 22
+text = "分数：0"
+
+[node name="GameOverPanel" type="Panel" parent="CanvasLayer" unique_id=954785003]
+custom_minimum_size = Vector2(25, 40)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -279.99994
+offset_top = 256.0
+offset_right = -241.89648
+offset_bottom = 294.6762
+grow_horizontal = 2
+scale = Vector2(15.169146, 18.129555)
+theme_override_styles/panel = SubResource("StyleBoxFlat_wf4e5")
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=786177384]
+layout_mode = 0
+offset_left = 12.657269
+offset_top = 3.088879
+offset_right = 76.65727
+offset_bottom = 26.088879
+scale = Vector2(0.20286623, 0.18854962)
+text = "游戏结束"
+
+[node name="ScoreLabelFinal" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1092943713]
+layout_mode = 0
+offset_left = 11.0751095
+offset_top = 15.003126
+offset_right = 101.07511
+offset_bottom = 38.003128
+scale = Vector2(0.18157439, 0.1885471)
+theme_override_font_sizes/font_size = 16
+text = "最终得分：0"
+
+[node name="TipLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1089870986]
+layout_mode = 0
+offset_left = 8.965564
+offset_top = 26.917374
+offset_right = 152.96556
+offset_bottom = 49.917374
+scale = Vector2(0.13904454, 0.21983054)
+text = "按下空格键重新挑战"
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=462099993]
+layout_mode = 0
+offset_left = 7.9107914
+offset_top = 7.942832
+offset_right = 103.91079
+offset_bottom = 30.942833
+scale = Vector2(0.13450094, 0.13317738)
+text = "坤炸没有收集完所有福瑞！"
+
+[node name="FoodCountLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1076727568]
+layout_mode = 0
+offset_left = 10.547722
+offset_top = 21.180883
+offset_right = 116.54772
+offset_bottom = 44.180885
+scale = Vector2(0.18422256, 0.18105896)
+theme_override_font_sizes/font_size = 16
+text = "收集的福瑞：0"
+
+[node name="EscLabel" type="Label" parent="CanvasLayer/GameOverPanel" unique_id=1787359812]
+layout_mode = 0
+offset_left = 8.965563
+offset_top = 33.095135
+offset_right = 161.96556
+offset_bottom = 56.095135
+scale = Vector2(0.13126647, 0.19502881)
+text = "按下esc键返回主菜单"
+
+[node name="StartCover" type="TextureRect" parent="CanvasLayer" unique_id=1428989286]
+visible = false
+offset_right = 2732.0
+offset_bottom = 1534.0
+scale = Vector2(0.94, 0.94)
+texture = ExtResource("8_sd45b")
+
+[connection signal="area_entered" from="KunzhaHead/Area2D" to="KunzhaHead" method="_on_Area2D_area_entered"]

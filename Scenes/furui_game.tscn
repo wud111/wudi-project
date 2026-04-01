@@ -38,10 +38,12 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.047058824, 0.29803923, 0.92941177, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_6pmrw"]
+
 [node name="furui game" type="Node2D" unique_id=1000228086]
 script = ExtResource("1_6pmrw")
 
-[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374 node_paths=PackedStringArray("score_label", "game_over_panel", "score_final_label", "food_count_label", "start_cover")]
+[node name="KunzhaHead" type="Sprite2D" parent="." unique_id=1576356374 node_paths=PackedStringArray("score_label", "game_over_panel", "score_final_label", "food_count_label", "start_cover", "timer_label")]
 position = Vector2(296.00003, 172.33336)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("1_1e18b")
@@ -51,6 +53,7 @@ game_over_panel = NodePath("../CanvasLayer/GameOverPanel")
 score_final_label = NodePath("../CanvasLayer/GameOverPanel/ScoreLabelFinal")
 food_count_label = NodePath("../CanvasLayer/GameOverPanel/FoodCountLabel")
 start_cover = NodePath("../CanvasLayer/StartCover")
+timer_label = NodePath("../CanvasLayer/TimerLabel")
 
 [node name="Area2D" type="Area2D" parent="KunzhaHead" unique_id=2122645939]
 
@@ -128,12 +131,13 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -48.0
-offset_right = 120.0
-offset_bottom = 65.0
+offset_top = 48.0
+offset_right = 44.985107
+offset_bottom = 82.0
 grow_horizontal = 2
 scale = Vector2(1.3765658, 1.7408543)
 theme_override_fonts/font = SubResource("FontVariation_t5wx2")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 text = "分数：0"
 
 [node name="GameOverPanel" type="Panel" parent="CanvasLayer" unique_id=1877662306]
@@ -211,5 +215,14 @@ offset_right = 2732.0
 offset_bottom = 1534.0
 scale = Vector2(0.94, 0.94)
 texture = ExtResource("9_6pmrw")
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer" unique_id=169677526]
+offset_left = 1192.0
+offset_top = 8.0
+offset_right = 1336.0
+offset_bottom = 64.0
+theme_override_fonts/font = SubResource("FontVariation_6pmrw")
+theme_override_font_sizes/font_size = 33
+text = "时间："
 
 [connection signal="area_entered" from="KunzhaHead/Area2D" to="KunzhaHead" method="_on_Area2D_area_entered"]
