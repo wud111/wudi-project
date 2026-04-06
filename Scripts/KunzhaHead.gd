@@ -20,7 +20,7 @@ const SAFE_BODY_COUNT = 3
 @export var timer_label: Label
 
 # 倒计时
-@export var total_time: float = 60.0
+@export var total_time: float = 10.0
 var current_time: float = 0.0
 
 var direction: Vector2 = Vector2.ZERO

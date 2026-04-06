@@ -52,7 +52,7 @@ func load_snake_data(head_node, parent_node):
 	head_node.direction = snake_direction
 	head_node.score = score
 	head_node.food_count = food_count
-	head_node.game_started = game_started
+	# head_node.game_started = game_started  # KunzhaHead2.gd没有这个属性
 	
 	# 清空现有的身体
 	for body in head_node.body_parts:
@@ -74,9 +74,10 @@ func load_snake_data(head_node, parent_node):
 	# 恢复位置历史
 	head_node.position_history = position_history.duplicate()
 	
-	# 更新UI
-	if head_node.score_label:
-		head_node.score_label.text = "分数：" + str(score)
+	# 更新UI - 通过节点路径获取，因为KunzhaHead2.gd没有score_label属性
+	var score_label = parent_node.get_node_or_null("CanvasLayer/Label")
+	if score_label:
+		score_label.text = "分数：" + str(score)
 	
 	print("蛇数据加载完成：")
 	print("  位置：", head_node.position)
